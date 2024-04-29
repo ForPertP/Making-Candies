@@ -1,3 +1,22 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+string ltrim(const string &);
+string rtrim(const string &);
+vector<string> split(const string &);
+
+/*
+ * Complete the 'minimumPasses' function below.
+ *
+ * The function is expected to return a LONG_INTEGER.
+ * The function accepts following parameters:
+ *  1. LONG_INTEGER m
+ *  2. LONG_INTEGER w
+ *  3. LONG_INTEGER p
+ *  4. LONG_INTEGER n
+ */
+
 long minimumPasses(long m, long w, long p, long n)
 {
     long passes = 0;
