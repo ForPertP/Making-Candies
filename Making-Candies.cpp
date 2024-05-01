@@ -64,5 +64,29 @@ long minimumPasses(long m, long w, long p, long n)
         }
     }
 
-    return min(passes, run);
+    
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    string first_multiple_input_temp;
+    getline(cin, first_multiple_input_temp);
+
+    vector<string> first_multiple_input = split(rtrim(first_multiple_input_temp));
+
+    long m = stol(first_multiple_input[0]);
+
+    long w = stol(first_multiple_input[1]);
+
+    long p = stol(first_multiple_input[2]);
+
+    long n = stol(first_multiple_input[3]);
+
+    long result = minimumPasses(m, w, p, n);
+
+    fout << result << "\n";
+
+    fout.close();
+
+    return 0;
 }
