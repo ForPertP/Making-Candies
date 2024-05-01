@@ -63,6 +63,8 @@ long minimumPasses(long m, long w, long p, long n)
             run = min(run, long(passes + ceil((n - candy) / (m * w * 1.0))));
         }
     }
+
+    return min(passes, run);
 }
 
     
