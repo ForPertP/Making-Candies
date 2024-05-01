@@ -22,11 +22,11 @@ long minimumPasses(long m, long w, long p, long n)
     long passes = 0;
     long candy = 0;
     long step = 0;
-    long run = LLONG_MAX;
+    long run = LONG_MAX;
 
     while (candy < n) 
     {
-        step = (m > LLONG_MAX / w) ? 0 : (p - candy) / (m * w);
+        step = (m > LONG_MAX / w) ? 0 : (p - candy) / (m * w);
 
         if (step <= 0)
         {
@@ -53,9 +53,9 @@ long minimumPasses(long m, long w, long p, long n)
 
         passes += step;
 
-        if (step * m > LLONG_MAX / w)
+        if (step * m > LONG_MAX / w)
         {
-            candy = LLONG_MAX;
+            candy = LONG_MAX;
         }
         else
         {
@@ -67,7 +67,7 @@ long minimumPasses(long m, long w, long p, long n)
     return min(passes, run);
 }
 
-    
+
 int main()
 {
     ofstream fout(getenv("OUTPUT_PATH"));
@@ -92,4 +92,43 @@ int main()
     fout.close();
 
     return 0;
+}
+
+string ltrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        s.begin(),
+        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
+    );
+
+    return s;
+}
+
+string rtrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
+        s.end()
+    );
+
+    return s;
+}
+
+vector<string> split(const string &str) {
+    vector<string> tokens;
+
+    string::size_type start = 0;
+    string::size_type end = 0;
+
+    while ((end = str.find(" ", start)) != string::npos) {
+        tokens.push_back(str.substr(start, end - start));
+
+        start = end + 1;
+    }
+
+    tokens.push_back(str.substr(start));
+
+    return tokens;
 }
