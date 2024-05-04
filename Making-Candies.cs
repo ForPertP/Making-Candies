@@ -26,11 +26,59 @@ class Result
      *  4. LONG_INTEGER n
      */
 
-    public static long minimumPasses(long m, long w, long p, long n)
+    public static long minimumPasses(long machines, long workers, long production, long n)
     {
-    }
+        long totalPasses = 0;
+        long producedCandy = 0;
+        long productionPerStep = 0;
+        long minTotalPasses = long.MaxValue;
 
+        while (producedCandy < n)
+        {
+            productionPerStep = (machines > long.MaxValue / workers)
+                ? 0 : (production - producedCandy) / (machines * workers);
+
+            if (productionPerStep <= 0)
+            {
+                long machinesAndWorkers = producedCandy / production;
+
+                if (machines >= workers + machinesAndWorkers)
+                {
+                    workers += machinesAndWorkers;
+                }
+                else if (workers >= machines + machinesAndWorkers)
+                {
+                    machines += machinesAndWorkers;
+                }
+                else
+                {
+                    long total = machines + workers + machinesAndWorkers;
+                    machines = total / 2;
+                    workers = total - machines;
+                }
+
+                producedCandy %= production;
+                productionPerStep = 1;
+            }
+
+            totalPasses += productionPerStep;
+
+            if (productionPerStep * machines > long.MaxValue / workers)
+            {
+                producedCandy = long.MaxValue;
+            }
+            else
+            {
+                producedCandy += productionPerStep * machines * workers;
+                minTotalPasses = Math.Min(minTotalPasses, totalPasses + 
+                (long)Math.Ceiling((double)(n - producedCandy) / (machines * workers)));
+            }
+        }
+
+        return Math.Min(totalPasses, minTotalPasses);
+    }
 }
+
 
 class Solution
 {
