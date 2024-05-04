@@ -28,7 +28,31 @@ class Result
 
     public static long minimumPasses(long m, long w, long p, long n)
     {
-
     }
 
+}
+
+class Solution
+{
+    public static void Main(string[] args)
+    {
+        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+
+        string[] firstMultipleInput = Console.ReadLine().TrimEnd().Split(' ');
+
+        long m = Convert.ToInt64(firstMultipleInput[0]);
+
+        long w = Convert.ToInt64(firstMultipleInput[1]);
+
+        long p = Convert.ToInt64(firstMultipleInput[2]);
+
+        long n = Convert.ToInt64(firstMultipleInput[3]);
+
+        long result = Result.minimumPasses(m, w, p, n);
+
+        textWriter.WriteLine(result);
+
+        textWriter.Flush();
+        textWriter.Close();
+    }
 }
