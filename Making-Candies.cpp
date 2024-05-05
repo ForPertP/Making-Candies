@@ -22,9 +22,9 @@ long minimumPasses(long m, long w, long p, long n)
     long passes = 0;
     long candy = 0;
     long step = 0;
-    long run = LONG_MAX;
+    long minTotalPasses = LONG_MAX;
 
-    while (candy < n) 
+    while (candy < n)
     {
         step = (m > LONG_MAX / w) ? 0 : (p - candy) / (m * w);
 
@@ -60,13 +60,13 @@ long minimumPasses(long m, long w, long p, long n)
         else
         {
             candy += step * m * w;
-            run = min(run, long(passes + ceil((n - candy) / (m * w * 1.0))));
+            minTotalPasses = min(minTotalPasses,
+                (long)(passes + ceil((double)(n - candy) / (m * w * 1.0))));
         }
     }
 
-    return min(passes, run);
+    return min(passes, minTotalPasses);
 }
-
 
 int main()
 {
