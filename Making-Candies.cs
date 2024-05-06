@@ -26,56 +26,55 @@ class Result
      *  4. LONG_INTEGER n
      */
 
-    public static long minimumPasses(long machines, long workers, long production, long n)
+    public static long minimumPasses(long m, long w, long p, long n)
     {
-        long totalPasses = 0;
-        long producedCandy = 0;
-        long productionPerStep = 0;
+        long passes = 0;
+        long candy = 0;
+        long step = 0;
         long minTotalPasses = long.MaxValue;
 
-        while (producedCandy < n)
+        while (candy < n)
         {
-            productionPerStep = (machines > long.MaxValue / workers)
-                ? 0 : (production - producedCandy) / (machines * workers);
+            step = (m > long.MaxValue / w) ? 0 : (p - candy) / (m * w);
 
-            if (productionPerStep <= 0)
+            if (step <= 0)
             {
-                long machinesAndWorkers = producedCandy / production;
+                long mw = candy / p;
 
-                if (machines >= workers + machinesAndWorkers)
+                if (m >= w + mw)
                 {
-                    workers += machinesAndWorkers;
+                    w += mw;
                 }
-                else if (workers >= machines + machinesAndWorkers)
+                else if (w >= m + mw)
                 {
-                    machines += machinesAndWorkers;
+                    m += mw;
                 }
                 else
                 {
-                    long total = machines + workers + machinesAndWorkers;
-                    machines = total / 2;
-                    workers = total - machines;
+                    long total = m + w + mw;
+                    m = total / 2;
+                    w = total - m;
                 }
 
-                producedCandy %= production;
-                productionPerStep = 1;
+                candy %= p;
+                step = 1;
             }
 
-            totalPasses += productionPerStep;
+            passes += step;
 
-            if (productionPerStep * machines > long.MaxValue / workers)
+            if (step * m > long.MaxValue / w)
             {
-                producedCandy = long.MaxValue;
+                candy = long.MaxValue;
             }
             else
             {
-                producedCandy += productionPerStep * machines * workers;
-                minTotalPasses = Math.Min(minTotalPasses, totalPasses + 
-                (long)Math.Ceiling((double)(n - producedCandy) / (machines * workers)));
+                candy += step * m * w;
+                minTotalPasses = Math.Min(minTotalPasses,
+                    passes + (long)Math.Ceiling((double)(n - candy) / (m * w)));
             }
         }
 
-        return Math.Min(totalPasses, minTotalPasses);
+        return Math.Min(passes, minTotalPasses);
     }
 }
 
