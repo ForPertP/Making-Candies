@@ -29,7 +29,32 @@ class Result {
         long step = 0;
         long minTotalPasses = Long.MAX_VALUE;
 
-        return minTotalPasses;
+        return Math.min(passes, minTotalPasses);
     }
 }
 
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        long m = Long.parseLong(firstMultipleInput[0]);
+
+        long w = Long.parseLong(firstMultipleInput[1]);
+
+        long p = Long.parseLong(firstMultipleInput[2]);
+
+        long n = Long.parseLong(firstMultipleInput[3]);
+
+        long result = Result.minimumPasses(m, w, p, n);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
