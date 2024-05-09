@@ -29,6 +29,37 @@ class Result {
         long step = 0;
         long minTotalPasses = Long.MAX_VALUE;
 
+        while (candy < n) {
+            step = (m > Long.MAX_VALUE / w) ? 0 : (p - candy) / (m * w);
+
+            if (step <= 0) {
+                long mw = candy / p;
+
+                if (m >= w + mw) {
+                    w += mw;
+                } else if (w >= m + mw) {
+                    m += mw;
+                } else {
+                    long total = m + w + mw;
+                    m = total / 2;
+                    w = total - m;
+                }
+
+                candy %= p;
+                step = 1;
+            }
+
+            passes += step;
+
+            if (step * m > Long.MAX_VALUE / w) {
+                candy = Long.MAX_VALUE;
+            } else {
+                candy += step * m * w;
+                minTotalPasses = Math.min(minTotalPasses, passes +
+                    (long)Math.ceil((double)(n - candy) / (m * w)));
+            }
+        }
+
         return Math.min(passes, minTotalPasses);
     }
 }
