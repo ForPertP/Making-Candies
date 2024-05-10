@@ -11,7 +11,6 @@ import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 class Result {
-
     /*
      * Complete the 'minimumPasses' function below.
      *
@@ -63,7 +62,6 @@ class Result {
         return Math.min(passes, minTotalPasses);
     }
 }
-
 
 public class Solution {
     public static void main(String[] args) throws IOException {
